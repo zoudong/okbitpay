@@ -12,3 +12,5 @@ okbitpay is a bitcoin payment system by java
 http://www.okbitpay.com
 
 项目开发中……
+
+**Donation: bitcoin address:   12F1PyutAzus9Q9Bg64fYqCXyyYcMxts4b
