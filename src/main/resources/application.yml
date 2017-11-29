@@ -1,0 +1,38 @@
+server:
+    port: 8080
+    context-path:
+    session:
+      timeout: 18000
+logging:
+    level:
+        tk.mybatis: debug
+        com.bocai: debug
+    file: /log/log.log
+spring:
+    http:
+      encoding.force: true
+
+    datasource:
+        name: okbitpay
+        url: jdbc:mysql://localhost:3306/okbitpay?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&useSSL=false
+        username: root
+        password: 123456
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 299
+        initialSize: 0
+        maxWait: 5000
+        minIdle: 3
+        timeBetweenEvictionRunsMillis: 90000
+        minEvictableIdleTimeMillis: 1800000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: false
+        maxOpenPreparedStatements: 299
+multipart:
+  max-file-size:  50Mb
+  max-request-size: 100Mb
+
