@@ -26,7 +26,7 @@ public class PayController {
         try {
         LOGGER.info("start{}",payOrder);
         PageHelper.startPage(payOrder.getStart(), payOrder.getLength());
-        List<PayOrder> list = payOrderService.selectAll();
+        List<PayOrder> list = payOrderService.selectAllPayOrders();
         PageResult<PayOrder> pageResult = new PageResult<PayOrder>(list);
         pageResult.setStatus(BaseResult.success);
         pageResult.setMsg(BaseResult.success);
