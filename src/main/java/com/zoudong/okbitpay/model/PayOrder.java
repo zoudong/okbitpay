@@ -8,7 +8,7 @@ import java.util.Date;
 @Data
 public class PayOrder extends BaseEntity{
 
-    private Long code;
+    private String code;
 
     private BigDecimal amount;
 

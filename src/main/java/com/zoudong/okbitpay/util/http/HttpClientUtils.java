@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
@@ -18,6 +19,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -66,7 +68,7 @@ public class HttpClientUtils {
         .build();
   }
 
-  public static String post(String urlToRequest , Map<String, Object> parameters , Integer connectionRequestTimeout ,
+  public static JSONObject urlPost(String url , Map<String, Object> parameters , Integer connectionRequestTimeout ,
       Integer connectTimeout , Integer socketTimeout) {
 
     Long startTs = System.currentTimeMillis();
@@ -79,8 +81,8 @@ public class HttpClientUtils {
     }
 
     try {
-      LOGGER.info("post-req:url:{},param:{}", urlToRequest, JSON.toJSONString(parameters));
-      HttpPost post = new HttpPost(urlToRequest);
+      LOGGER.info("post-req:url:{},param:{}", url, JSON.toJSONString(parameters));
+      HttpPost post = new HttpPost(url);
 
       if (connectionRequestTimeout != null && connectTimeout != null && socketTimeout != null) {
         RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(connectTimeout)
@@ -89,11 +91,11 @@ public class HttpClientUtils {
       }
       post.setEntity(new UrlEncodedFormEntity(nvps, UTF8));
 
-      String result = invoke(post);
+      JSONObject result = invoke(post);
       Long endTs = System.currentTimeMillis();
       Long currentMethodCallTime = endTs - startTs;
       if (currentMethodCallTime > 5000) {
-        LOGGER.warn("url:{},call time {} ms", urlToRequest, currentMethodCallTime);
+        LOGGER.warn("url:{},call time {} ms", url, currentMethodCallTime);
         LOGGER.info("所有存活线程="+Thread.getAllStackTraces().size());
       }
       LOGGER.info("post-rps:{}", result);
@@ -105,13 +107,54 @@ public class HttpClientUtils {
     return null;
   }
 
-  private static String invoke(HttpUriRequest request) {
+
+
+
+  public static JSONObject jsonPost(String url, JSONObject jsonParam,Integer connectionRequestTimeout ,
+                                    Integer connectTimeout , Integer socketTimeout) {
+    Long startTs = System.currentTimeMillis();
+    HttpPost httpPost = new HttpPost(url);
+    // 设置请求和传输超时时间
+    if (connectionRequestTimeout != null && connectTimeout != null && socketTimeout != null) {
+      RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(connectTimeout)
+              .setConnectionRequestTimeout(connectionRequestTimeout).setSocketTimeout(socketTimeout).build();
+      httpPost.setConfig(requestConfig);
+    }
+    LOGGER.info("post-req:url:{},param:{}", url, jsonParam);
+    if (null != jsonParam) {
+      // 解决中文乱码问题
+      StringEntity entity = new StringEntity(jsonParam.toString(),
+              "utf-8");
+      entity.setContentEncoding("UTF-8");
+      entity.setContentType("application/json");
+      httpPost.setEntity(entity);
+    }
+    JSONObject result = invoke(httpPost);
+    Long endTs = System.currentTimeMillis();
+    Long currentMethodCallTime = endTs - startTs;
+    if (currentMethodCallTime > 5000) {
+      LOGGER.warn("url:{},call time {} ms", url, currentMethodCallTime);
+      LOGGER.info("所有存活线程=" + Thread.getAllStackTraces().size());
+    }
+    LOGGER.info("post-rps:{}", result);
+    return result;
+  }
+
+
+
+
+  private static JSONObject invoke(HttpUriRequest request) {
     CloseableHttpResponse response = null;
+    JSONObject jsonResult = null;
     try {
       response = httpclient.execute(request);
       if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+        String str = "";
         HttpEntity entity = response.getEntity();
-        return EntityUtils.toString(entity, UTF8);
+        str=EntityUtils.toString(entity, UTF8);
+        //把json字符串转换成json对象
+        jsonResult = JSONObject.parseObject(str);
+        return jsonResult;
       }
     }
     catch (IOException e) {

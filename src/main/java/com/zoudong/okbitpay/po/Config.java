@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 @Data
 @PropertySource({"classpath:config.properties"})
 public class Config {
+    @Value("${rpcaddress}")
+    String rpcaddress;
     @Value("${rpcuser}")
     String rpcuser;
     @Value("${rpcpassword}")

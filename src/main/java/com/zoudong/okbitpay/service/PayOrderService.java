@@ -16,4 +16,6 @@ public interface PayOrderService {
 
     public int updateByPrimaryKeySelectivePayOrder(PayOrder payOrder) throws Exception;
 
+    public String savePayOrderProcess(PayOrder payOrder) throws Exception;
+
 }

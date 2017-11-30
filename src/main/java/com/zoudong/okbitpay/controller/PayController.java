@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class PayController {
@@ -26,20 +27,17 @@ public class PayController {
     private PayOrderService payOrderService;
 
     @ResponseBody
-    @RequestMapping(value = "/insertOnePayOrder", method = RequestMethod.GET)
+    @RequestMapping(value = "/insertOnePayOrder", method = RequestMethod.POST)
     public Object insertOnePayOrder(PayOrder payOrder) {
         try {
             LOGGER.info("start{}",payOrder);
-            System.out.print(config.toString());
-
-
-
+            payOrderService.savePayOrderProcess(payOrder);
             Result result=ResultUtils.fillSuccessData(null);
             LOGGER.info("end{}",result);
             return result;
         }catch (Exception e){
             e.printStackTrace();
-            return new PageResult<>();
+            return ResultUtils.fillErrorMsg("创建bitCoin支付订单失败");
         }
     }
 

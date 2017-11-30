@@ -11,6 +11,7 @@ public class OkbitpayApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		//http://localhost:8080/insertOnePayOrder?amount=1
 	}
 
 }
