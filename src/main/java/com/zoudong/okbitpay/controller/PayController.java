@@ -2,6 +2,7 @@ package com.zoudong.okbitpay.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.zoudong.okbitpay.model.PayOrder;
+import com.zoudong.okbitpay.po.Config;
 import com.zoudong.okbitpay.service.PayOrderService;
 import com.zoudong.okbitpay.util.ResultUtils;
 import com.zoudong.okbitpay.util.result.BaseResult;
@@ -20,6 +21,8 @@ import java.util.List;
 public class PayController {
     private static final Logger LOGGER = LoggerFactory.getLogger(PayController.class);
     @Resource
+    private Config config;
+    @Resource
     private PayOrderService payOrderService;
 
     @ResponseBody
@@ -27,7 +30,7 @@ public class PayController {
     public Object insertOnePayOrder(PayOrder payOrder) {
         try {
             LOGGER.info("start{}",payOrder);
-
+            System.out.print(config.toString());
 
 
 
