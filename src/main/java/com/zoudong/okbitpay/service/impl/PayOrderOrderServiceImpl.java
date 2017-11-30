@@ -60,6 +60,8 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
         JSONObject jsonObject=HttpClientUtils.jsonPost(url,jsonParam,null,null,null);
         if(jsonObject!=null) {
             payOrder.setReceiveAddress(jsonObject.getString("result"));
+        }else {
+            throw new Exception("创建比特币收款地址失败！");
         }
         payOrder.setRetryCount(0l);
         payOrder.setCode(orderId);
