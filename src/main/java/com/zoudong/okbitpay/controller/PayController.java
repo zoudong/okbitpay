@@ -3,8 +3,10 @@ package com.zoudong.okbitpay.controller;
 import com.github.pagehelper.PageHelper;
 import com.zoudong.okbitpay.model.PayOrder;
 import com.zoudong.okbitpay.service.PayOrderService;
+import com.zoudong.okbitpay.util.ResultUtils;
 import com.zoudong.okbitpay.util.result.BaseResult;
 import com.zoudong.okbitpay.util.result.PageResult;
+import com.zoudong.okbitpay.util.result.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,24 @@ public class PayController {
     private static final Logger LOGGER = LoggerFactory.getLogger(PayController.class);
     @Resource
     private PayOrderService payOrderService;
+
+    @ResponseBody
+    @RequestMapping(value = "/insertOnePayOrder", method = RequestMethod.GET)
+    public Object insertOnePayOrder(PayOrder payOrder) {
+        try {
+            LOGGER.info("start{}",payOrder);
+
+
+
+
+            Result result=ResultUtils.fillSuccessData(null);
+            LOGGER.info("end{}",result);
+            return result;
+        }catch (Exception e){
+            e.printStackTrace();
+            return new PageResult<>();
+        }
+    }
 
     @ResponseBody
     @RequestMapping(value = "/selectAllPayOrder", method = RequestMethod.GET)
