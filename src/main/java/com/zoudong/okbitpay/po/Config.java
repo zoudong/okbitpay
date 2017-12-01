@@ -17,4 +17,8 @@ public class Config {
     String rpcpassword;
     @Value("${rpcport}")
     String rpcport;
+    @Value("${validation_level}")
+    int validationLevel;
+    @Value("${maxretry_count}")
+    int maxretrycount;
 }

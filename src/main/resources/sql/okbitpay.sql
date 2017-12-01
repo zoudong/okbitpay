@@ -28,7 +28,7 @@ CREATE TABLE `pay_order` (
   `receive_address` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '比特币收款地址',
   `send_address` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '比特币发送来源',
   `pay_time` datetime DEFAULT NULL COMMENT '支付时间',
-  `retry_count` bigint(255) DEFAULT NULL COMMENT '重试收款次数',
+  `retry_count` int(8) DEFAULT NULL COMMENT '重试收款次数',
   `last_retry_time` datetime DEFAULT NULL COMMENT '最后重试时间',
   `pay_status` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '支付状态',
   `pay_description` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '支付用途',

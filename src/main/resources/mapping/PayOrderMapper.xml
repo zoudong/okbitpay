@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zoudong.okbitpay.dao.PayOrderMapper" >
-  <resultMap id="BaseResultMap" type="com.zoudong.okbitpay.model.PayOrder" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="code" property="code" jdbcType="BIGINT" />
-    <result column="amount" property="amount" jdbcType="DECIMAL" />
-    <result column="receive_address" property="receiveAddress" jdbcType="VARCHAR" />
-    <result column="send_address" property="sendAddress" jdbcType="VARCHAR" />
-    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
-    <result column="retry_count" property="retryCount" jdbcType="BIGINT" />
-    <result column="last_retry_time" property="lastRetryTime" jdbcType="TIMESTAMP" />
-    <result column="pay_status" property="payStatus" jdbcType="VARCHAR" />
-    <result column="pay_description" property="payDescription" jdbcType="VARCHAR" />
-    <result column="product_id" property="productId" jdbcType="BIGINT" />
-    <result column="product_name" property="productName" jdbcType="VARCHAR" />
-    <result column="product_number" property="productNumber" jdbcType="BIGINT" />
-    <result column="account_code" property="accountCode" jdbcType="VARCHAR" />
-    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.zoudong.okbitpay.dao.PayOrderMapper">
+    <resultMap id="BaseResultMap" type="com.zoudong.okbitpay.model.PayOrder">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="code" property="code" jdbcType="BIGINT"/>
+        <result column="amount" property="amount" jdbcType="DECIMAL"/>
+        <result column="receive_address" property="receiveAddress" jdbcType="VARCHAR"/>
+        <result column="send_address" property="sendAddress" jdbcType="VARCHAR"/>
+        <result column="pay_time" property="payTime" jdbcType="TIMESTAMP"/>
+        <result column="retry_count" property="retryCount" jdbcType="BIGINT"/>
+        <result column="last_retry_time" property="lastRetryTime" jdbcType="TIMESTAMP"/>
+        <result column="pay_status" property="payStatus" jdbcType="VARCHAR"/>
+        <result column="pay_description" property="payDescription" jdbcType="VARCHAR"/>
+        <result column="product_id" property="productId" jdbcType="BIGINT"/>
+        <result column="product_name" property="productName" jdbcType="VARCHAR"/>
+        <result column="product_number" property="productNumber" jdbcType="BIGINT"/>
+        <result column="account_code" property="accountCode" jdbcType="VARCHAR"/>
+        <result column="account_name" property="accountName" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, code, amount, receive_address, send_address, pay_time, retry_count, last_retry_time, 
     pay_status, pay_description, product_id, product_name, product_number, account_code, 
     account_name, status, create_time, update_time

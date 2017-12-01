@@ -1,7 +1,6 @@
 package com.zoudong.okbitpay.service;
 
 import com.zoudong.okbitpay.model.PayOrder;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -17,5 +16,7 @@ public interface PayOrderService {
     public int updateByPrimaryKeySelectivePayOrder(PayOrder payOrder) throws Exception;
 
     public String savePayOrderProcess(PayOrder payOrder) throws Exception;
+
+    public void updatePayOrderPayStatus() throws Exception;
 
 }

@@ -18,7 +18,7 @@ public class PayOrder extends BaseEntity{
 
     private Date payTime;
 
-    private Long retryCount;
+    private Integer retryCount;
 
     private Date lastRetryTime;
 
