@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : utf-8
 
- Date: 12/01/2017 00:59:25 AM
+ Date: 12/02/2017 02:12:22 AM
 */
 
 SET NAMES utf8mb4;
@@ -23,7 +23,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `pay_order`;
 CREATE TABLE `pay_order` (
   `id` bigint(255) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `code` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '订单编码',
+  `code` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '比特币收款地址编码',
   `amount` decimal(65,8) NOT NULL COMMENT '支付金额',
   `receive_address` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '比特币收款地址',
   `send_address` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '比特币发送来源',
@@ -40,6 +40,8 @@ CREATE TABLE `pay_order` (
   `status` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '订单状态',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `callback_url` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '支付成功或失败后异步回调请求地址url',
+  `order_id` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -47,7 +49,7 @@ CREATE TABLE `pay_order` (
 --  Records of `pay_order`
 -- ----------------------------
 BEGIN;
-INSERT INTO `pay_order` VALUES ('1', '25bdded6-9251-435d-9b05-b8b6158c9d54', '1.00000000', '16VKk2FYYn1nVCtZ16QGSJZ6bq7ZEgBziM', null, null, '0', null, 'pending', null, null, null, null, null, null, 'enable', '2017-12-01 00:57:56', null);
+INSERT INTO `pay_order` VALUES ('1', '25bdded6-9251-435d-9b05-b8b6158c9d54', '1.00000000', '16VKk2FYYn1nVCtZ16QGSJZ6bq7ZEgBziM', null, null, '10', '2017-12-02 01:23:50', 'pending', null, null, null, null, null, null, 'enable', '2017-12-01 00:57:56', null, 'http://127.0.0.1:8080', null);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
