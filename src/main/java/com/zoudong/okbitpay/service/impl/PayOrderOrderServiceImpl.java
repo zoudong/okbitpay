@@ -9,6 +9,9 @@ import com.zoudong.okbitpay.po.PayStatus;
 import com.zoudong.okbitpay.po.Status;
 import com.zoudong.okbitpay.service.PayOrderService;
 import com.zoudong.okbitpay.util.http.HttpClientUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
@@ -21,6 +24,7 @@ import java.util.UUID;
 
 @Service
 public class PayOrderOrderServiceImpl implements PayOrderService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PayOrderOrderServiceImpl.class);
     @Resource
     private Config config;
     @Resource
@@ -80,27 +84,39 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
         payOrder.setRetryCount(10);
         List<PayOrder> pendingReceivePayOrders = selectPendingReceivePayOrders(payOrder);
         for (PayOrder pendingReceivePayOrder : pendingReceivePayOrders) {
-            if (isPaid(pendingReceivePayOrder.getReceiveAddress(),pendingReceivePayOrder.getAmount())) {
+            if (isPaid(pendingReceivePayOrder.getReceiveAddress(), pendingReceivePayOrder.getAmount())) {
                 PayOrder paidOrder = new PayOrder();
                 paidOrder.setId(pendingReceivePayOrder.getId());
                 paidOrder.setPayStatus(PayStatus.paid);
                 paidOrder.setPayTime(new Date());
                 paidOrder.setLastRetryTime(new Date());
                 updateByPrimaryKeySelectivePayOrder(paidOrder);
+                //回调地址一定要签名，暂不管
+                String callbackUrl = pendingReceivePayOrder + String.format("/orderId=%s&payStatus=%s"
+                        , pendingReceivePayOrder.getOrderId()
+                        , PayStatus.paid
+                );
+                doCallback(callbackUrl,null,null,null,null);
             } else {
                 PayOrder pendingOrder = new PayOrder();
                 pendingOrder.setId(pendingReceivePayOrder.getId());
                 pendingOrder.setRetryCount(pendingReceivePayOrder.getRetryCount() + 1);
-                if(pendingReceivePayOrder.getRetryCount() + 1>=10){
+                pendingOrder.setLastRetryTime(new Date());
+                if (pendingReceivePayOrder.getRetryCount() + 1 >= 10) {
                     pendingOrder.setStatus(Status.disable);
                 }
-                pendingOrder.setLastRetryTime(new Date());
                 updateByPrimaryKeySelectivePayOrder(pendingOrder);
+                //回调地址一定要签名，暂不管
+                String callbackUrl = pendingReceivePayOrder + String.format("/orderId=%s&payStatus=%s"
+                        , pendingReceivePayOrder.getOrderId()
+                        , PayStatus.expire
+                );
+                doCallback(callbackUrl,null,null,null,null);
             }
         }
     }
 
-    public boolean isPaid(String receiveAddress,BigDecimal amount) throws Exception {
+    public boolean isPaid(String receiveAddress, BigDecimal amount) throws Exception {
         String url = String.format("http://%s:%s@%s:%s", config.getRpcuser()
                 , config.getRpcpassword()
                 , config.getRpcaddress()
@@ -122,5 +138,14 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
         }
     }
 
+    @Async
+    private void doCallback(String callbackUrl, JSONObject jsonParam, Integer connectionRequestTimeout, Integer connectTimeout, Integer socketTimeout){
+        try {
+            HttpClientUtils.jsonPost(callbackUrl, jsonParam, null, null, null);
+        }catch (Exception e){
+            LOGGER.error("订单系统回调异常:{}",callbackUrl);
+            e.printStackTrace();
+        }
+    }
 
 }

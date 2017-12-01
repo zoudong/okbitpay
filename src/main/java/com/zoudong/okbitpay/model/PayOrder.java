@@ -42,5 +42,9 @@ public class PayOrder extends BaseEntity{
 
     private Date updateTime;
 
+    private String callbackUrl;
+
+    private String orderId;
+
 
 }

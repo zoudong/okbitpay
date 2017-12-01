@@ -31,6 +31,7 @@ public class PayController {
     public Object insertOnePayOrder(PayOrder payOrder) {
         try {
             LOGGER.info("start{}", payOrder);
+            //入参校验暂略
             payOrderService.savePayOrderProcess(payOrder);
             Result result = ResultUtils.fillSuccessData(null);
             LOGGER.info("end{}", result);

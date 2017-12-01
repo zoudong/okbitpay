@@ -4,4 +4,5 @@ public class PayStatus {
 
     public static final String pending = "pending";
     public static final String paid = "paid";
+    public static final String expire = "expire";
 }
