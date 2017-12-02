@@ -10,7 +10,7 @@ import com.zoudong.okbitpay.util.result.BaseResult;
 import com.zoudong.okbitpay.util.result.PageResult;
 import com.zoudong.okbitpay.util.result.Result;
 import com.zoudong.okbitpay.validate.PayOrderCreateGroup;
-import com.zoudong.okbitpay.vo.PayOrderVO;
+import com.zoudong.okbitpay.vo.PayOrderVOBase;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
@@ -34,7 +34,7 @@ public class PayController {
     private PayOrderService payOrderService;
 
     @RequestMapping(value = "/createPayOrder", method = RequestMethod.POST)
-    public Object createPayOrder(@Validated(value = {PayOrderCreateGroup.class})PayOrderVO payOrderVO, BindingResult bindingResult) {
+    public Object createPayOrder(@Validated(value = {PayOrderCreateGroup.class})PayOrderVOBase payOrderVO, BindingResult bindingResult) {
         Result result=new Result();
         try {
             logger.info("start{}", payOrderVO);

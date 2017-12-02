@@ -1,7 +1,6 @@
 package com.zoudong.okbitpay.vo;
 
 import lombok.Data;
-import lombok.NonNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
@@ -9,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class PayOrderVO extends PageVO {
+public class PayOrderVOBase extends BasePageVO {
 
     private Long id;
 

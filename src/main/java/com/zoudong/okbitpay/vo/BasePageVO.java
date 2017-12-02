@@ -7,7 +7,7 @@ import javax.persistence.Transient;
 import java.io.Serializable;
 
 @Data
-public class PageVO implements Serializable {
+public class BasePageVO implements Serializable {
 
 
     private Integer start = 0;
