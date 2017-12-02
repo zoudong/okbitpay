@@ -61,20 +61,20 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
         jsonParam.put("id", 0);
         jsonParam.put("method", "getaccountaddress");
         JSONArray jsonArray = new JSONArray();
-        String orderId = UUID.randomUUID().toString();
-        jsonArray.add(orderId);
+        String code = UUID.randomUUID().toString();
+        jsonArray.add(code);
         jsonParam.put("params", jsonArray);
         JSONObject jsonObject = HttpClientUtils.jsonPost(url, jsonParam, null, null, null);
         if (jsonObject != null) {
             payOrder.setReceiveAddress(jsonObject.getString("result"));
         }
         payOrder.setRetryCount(0);
-        payOrder.setCode(orderId);
+        payOrder.setCode(code);
         payOrder.setCreateTime(new Date());
         payOrder.setPayStatus(PayStatus.pending);
         payOrder.setStatus(Status.enable);
         this.insertOnePayOrder(payOrder);
-        return orderId;
+        return code;
     }
 
 
@@ -125,7 +125,6 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
         jsonParam.put("id", 0);
         jsonParam.put("method", "getreceivedbyaddress");
         JSONArray jsonArray = new JSONArray();
-        String orderId = UUID.randomUUID().toString();
         jsonArray.add(receiveAddress);
         jsonArray.add(config.getValidationLevel());
         jsonParam.put("params", jsonArray);
@@ -139,7 +138,7 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
     }
 
     @Async
-    private void doCallback(String callbackUrl, JSONObject jsonParam, Integer connectionRequestTimeout, Integer connectTimeout, Integer socketTimeout){
+    public void doCallback(String callbackUrl, JSONObject jsonParam, Integer connectionRequestTimeout, Integer connectTimeout, Integer socketTimeout){
         try {
             HttpClientUtils.jsonPost(callbackUrl, jsonParam, null, null, null);
         }catch (Exception e){
