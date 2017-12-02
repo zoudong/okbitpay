@@ -1,4 +1,4 @@
-# okbitpay
+# okbitpay 开发中，未完成。
 okbitpay is a bitcoin payment system by java
 
 1、如果你想拥有一个专属于你自己的不用与任何平台对接的私有比特币支付系统来把你的支付订单与业务系统关联起来
