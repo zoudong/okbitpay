@@ -38,10 +38,7 @@ maxretry_count=9
 3、数据库okbitpay.sql安装
 
 4、对接你的订单系统
-http://localhost:8080/createPayOrder？
-amount=1
-orderId=0000000000
-callbackUrl=http://127.0.0.1:8080
+post http://localhost:8080/createPayOrder?amount=1&orderId=0000000000&callbackUrl=http://127.0.0.1:8080
 
 返回结果:
 {
@@ -57,7 +54,7 @@ callbackUrl=http://127.0.0.1:8080
 
 
 
-http://localhost:8080/selectAllPayOrder
+get http://localhost:8080/selectAllPayOrder
 
 返回结果:
 {
