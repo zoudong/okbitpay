@@ -1,5 +1,6 @@
 package com.zoudong.okbitpay.vo;
 
+import com.zoudong.okbitpay.validate.PayOrderCreateGroup;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -13,7 +14,7 @@ public class PayOrderVO extends BasePageVO {
     private Long id;
 
     private String code;
-    @NotNull
+    @NotNull(message = "{amount not null}", groups = {PayOrderCreateGroup.class})
     private BigDecimal amount;
 
     private String receiveAddress;
@@ -45,9 +46,9 @@ public class PayOrderVO extends BasePageVO {
     private Date createTime;
 
     private Date updateTime;
-    @NotEmpty
+    @NotEmpty(message = "{callbackUrl not empty}", groups = {PayOrderCreateGroup.class})
     private String callbackUrl;
-    @NotEmpty
+    @NotEmpty(message = "{orderId not empty}", groups = {PayOrderCreateGroup.class})
     private String orderId;
 
 
