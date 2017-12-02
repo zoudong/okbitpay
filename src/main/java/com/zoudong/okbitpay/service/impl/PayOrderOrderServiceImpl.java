@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zoudong.okbitpay.dao.PayOrderMapper;
 import com.zoudong.okbitpay.model.PayOrder;
-import com.zoudong.okbitpay.po.Config;
+import com.zoudong.okbitpay.config.Config;
 import com.zoudong.okbitpay.po.PayStatus;
 import com.zoudong.okbitpay.po.Status;
 import com.zoudong.okbitpay.service.PayOrderService;

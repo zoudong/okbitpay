@@ -3,7 +3,7 @@ package com.zoudong.okbitpay.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.zoudong.okbitpay.model.PayOrder;
-import com.zoudong.okbitpay.po.Config;
+import com.zoudong.okbitpay.config.Config;
 import com.zoudong.okbitpay.service.PayOrderService;
 import com.zoudong.okbitpay.util.ResultUtils;
 import com.zoudong.okbitpay.util.result.BaseResult;
@@ -20,7 +20,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;

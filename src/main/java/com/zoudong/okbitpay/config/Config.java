@@ -1,4 +1,4 @@
-package com.zoudong.okbitpay.po;
+package com.zoudong.okbitpay.config;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
