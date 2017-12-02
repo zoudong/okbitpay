@@ -24,7 +24,7 @@ import java.util.UUID;
 
 @Service
 public class PayOrderOrderServiceImpl implements PayOrderService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PayOrderOrderServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(PayOrderOrderServiceImpl.class);
     @Resource
     private Config config;
     @Resource
@@ -144,7 +144,7 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
         try {
             HttpClientUtils.jsonPost(callbackUrl, jsonParam, null, null, null);
         }catch (Exception e){
-            LOGGER.error("订单系统回调异常:{}",callbackUrl);
+            logger.error("订单系统回调异常:{}",callbackUrl);
             e.printStackTrace();
         }
     }

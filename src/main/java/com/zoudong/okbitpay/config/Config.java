@@ -21,4 +21,5 @@ public class Config {
     int validationLevel;
     @Value("${maxretry_count}")
     int maxretrycount;
+
 }
