@@ -12,6 +12,8 @@ import com.zoudong.okbitpay.util.result.Result;
 import com.zoudong.okbitpay.validate.PayOrderCreateGroup;
 import com.zoudong.okbitpay.vo.PayOrderVO;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.converters.DateConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -20,11 +22,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
 
-@Controller
+@RestController
 public class PayController {
     private static final Logger logger = LoggerFactory.getLogger(PayController.class);
     @Resource
@@ -32,7 +35,6 @@ public class PayController {
     @Resource
     private PayOrderService payOrderService;
 
-    @ResponseBody
     @RequestMapping(value = "/createPayOrder", method = RequestMethod.POST)
     public Object createPayOrder(@Validated(value = {PayOrderCreateGroup.class})PayOrderVO payOrderVO, BindingResult bindingResult) {
         Result result=new Result();
@@ -41,11 +43,12 @@ public class PayController {
             //入参校验
             if (bindingResult.hasErrors()) {
                 result = ResultUtils.fillParameterfail(bindingResult);
-                logger.info("入参校验错误:", result);
+                logger.info("入参校验错误:{}", result);
                 return result;
             }
 
             PayOrder payOrder=new PayOrder();
+            ConvertUtils.register(new DateConverter(null), java.util.Date.class);
             BeanUtils.copyProperties(payOrder,payOrderVO);
             String code=payOrderService.savePayOrderProcess(payOrder);
             JSONObject resultObject=new JSONObject();
@@ -59,7 +62,6 @@ public class PayController {
         }
     }
 
-    @ResponseBody
     @RequestMapping(value = "/selectAllPayOrder", method = RequestMethod.GET)
     public PageResult<PayOrder> queryApprovalUpIntegration(PayOrder payOrder) {
         try {
