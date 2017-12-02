@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : utf-8
 
- Date: 12/02/2017 02:12:22 AM
+ Date: 12/03/2017 01:32:52 AM
 */
 
 SET NAMES utf8mb4;
@@ -43,13 +43,13 @@ CREATE TABLE `pay_order` (
   `callback_url` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '支付成功或失败后异步回调请求地址url',
   `order_id` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 --  Records of `pay_order`
 -- ----------------------------
 BEGIN;
-INSERT INTO `pay_order` VALUES ('1', '25bdded6-9251-435d-9b05-b8b6158c9d54', '1.00000000', '16VKk2FYYn1nVCtZ16QGSJZ6bq7ZEgBziM', null, null, '10', '2017-12-02 01:23:50', 'pending', null, null, null, null, null, null, 'enable', '2017-12-01 00:57:56', null, 'http://127.0.0.1:8080', null);
+INSERT INTO `pay_order` VALUES ('22', 'cebbc5ed-1f71-4805-8a0e-4ada63ced00b', '1.00000000', '1JdoJDdix9AeGWRvieMzTUzzh4AA4bLs1P', null, null, '10', '2017-12-03 00:54:00', 'pending', null, '0', null, '0', null, null, 'disable', '2017-12-03 00:44:00', null, 'http://127.0.0.1:8080', '0000000000'), ('23', 'aa7eec07-efed-4d92-ae6a-b7861475291e', '1.00000000', '12Kst6V1wk99rjtPRybU3w96LKWQ9XgaFv', null, null, '2', '2017-12-03 01:03:00', 'pending', null, '0', null, '0', null, null, 'enable', '2017-12-03 01:01:53', null, 'http://127.0.0.1:8080', '0000000000');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
