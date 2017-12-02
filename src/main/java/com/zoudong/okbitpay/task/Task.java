@@ -19,7 +19,7 @@ public class Task {
     @Resource
     private PayOrderService payOrderService;
 
-    @Scheduled(cron = "0 0/5 * * * ? ")
+    @Scheduled(cron = "0 0/1 * * * ? ")
     public void closeTimeA() throws Exception {
         LOGGER.info("********回执扫描开始********");
         payOrderService.updatePayOrderPayStatus();
