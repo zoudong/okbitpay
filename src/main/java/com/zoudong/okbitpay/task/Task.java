@@ -21,9 +21,9 @@ public class Task {
 
     @Scheduled(cron = "0 0/5 * * * ? ")
     public void closeTimeA() throws Exception {
-        LOGGER.info("********回执扫描开始********");
+        LOGGER.info("********支付订单支付结果扫描定时任务描开始********");
         payOrderService.updatePayOrderPayStatus();
-        LOGGER.info("********回执扫描结束********");
+        LOGGER.info("********支付订单支付结果扫描定时任务描结束********");
     }
 
 }
