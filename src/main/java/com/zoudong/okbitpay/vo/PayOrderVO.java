@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class PayOrderVOBase extends BasePageVO {
+public class PayOrderVO extends BasePageVO {
 
     private Long id;
 
