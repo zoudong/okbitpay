@@ -92,7 +92,8 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
                 paidOrder.setLastRetryTime(new Date());
                 updateByPrimaryKeySelectivePayOrder(paidOrder);
                 //回调地址一定要签名，暂不管
-                String callbackUrl = pendingReceivePayOrder + String.format("/orderId=%s&payStatus=%s"
+                String callbackUrl = pendingReceivePayOrder + String.format("/code=%s&orderId=%s&payStatus=%s"
+                        , pendingReceivePayOrder.getCode()
                         , pendingReceivePayOrder.getOrderId()
                         , PayStatus.paid
                 );
@@ -107,9 +108,10 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
                 }
                 updateByPrimaryKeySelectivePayOrder(pendingOrder);
                 //回调地址一定要签名，暂不管
-                String callbackUrl = pendingReceivePayOrder + String.format("/orderId=%s&payStatus=%s"
+                String callbackUrl = pendingReceivePayOrder + String.format("/code=%s&orderId=%s&payStatus=%s"
+                        , pendingReceivePayOrder.getCode()
                         , pendingReceivePayOrder.getOrderId()
-                        , PayStatus.expire
+                        , PayStatus.paid
                 );
                 doCallback(callbackUrl,null,null,null,null);
             }
