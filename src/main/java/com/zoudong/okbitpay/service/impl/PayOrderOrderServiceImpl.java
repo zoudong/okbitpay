@@ -80,8 +80,8 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
 
     public void updatePayOrderPayStatus() throws Exception {
         PayOrder payOrder = new PayOrder();
-        payOrder.setStatus(PayStatus.pending);
-        payOrder.setRetryCount(10);
+        payOrder.setStatus(PayStatus.pending+1);
+        payOrder.setRetryCount(config.getMaxretryCount());
         List<PayOrder> pendingReceivePayOrders = selectPendingReceivePayOrders(payOrder);
         for (PayOrder pendingReceivePayOrder : pendingReceivePayOrders) {
             if (isPaid(pendingReceivePayOrder.getReceiveAddress(), pendingReceivePayOrder.getAmount())) {

@@ -1,8 +1,13 @@
 server:
-    port: 8080
+    port: 8443
     context-path:
     session:
       timeout: 18000
+    ssl:
+       key-store: classpath:keystore.p12
+       key-store-password: 123456
+       keyStoreType: PKCS12
+       keyAlias: okbitpay
 logging:
     level:
         tk.mybatis: debug

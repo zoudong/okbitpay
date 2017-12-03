@@ -2,12 +2,14 @@ package com.zoudong.okbitpay.config;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+
 @Component
-@Data
 @PropertySource({"classpath:config.properties"})
+@Data
 public class Config {
     @Value("${rpcaddress}")
     String rpcaddress;
@@ -20,6 +22,6 @@ public class Config {
     @Value("${validation_level}")
     int validationLevel;
     @Value("${maxretry_count}")
-    int maxretrycount;
+    int maxretryCount;
 
 }

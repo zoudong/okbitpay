@@ -13,7 +13,15 @@ okbitpay is a bitcoin payment system by java
 
 项目开发中……
 
+
 使用说明:
+
+开启https支持:重新生成keystore.p12替换或去权威机构注册个证书
+keytool -genkey -alias okbitpay  -storetype PKCS12 -keyalg RSA -keysize 2048  -keystore keystore.p12 -validity 3650
+
+close postman SSL certificate verification
+
+
 1、安装bitCoin core 
 bit coinCore config:
 server=1
@@ -38,7 +46,7 @@ maxretry_count=9
 3、数据库okbitpay.sql安装
 
 4、对接你的订单系统
-post http://localhost:8080/createPayOrder?amount=1&orderId=0000000000&callbackUrl=http://127.0.0.1:8080
+post https://localhost:8443/createPayOrder?amount=1&orderId=0000000000&callbackUrl=http://127.0.0.1:8080
 
 返回结果:
 {
@@ -54,7 +62,7 @@ post http://localhost:8080/createPayOrder?amount=1&orderId=0000000000&callbackUr
 
 
 
-get http://localhost:8080/selectAllPayOrder
+get https://localhost:8443/selectAllPayOrder
 
 返回结果:
 {
