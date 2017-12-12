@@ -17,5 +17,4 @@ public class OkbitpayApplicationTests {
 	public void testUpdatePayOrderPayStatus()throws Exception {
 		//payOrderService.updatePayOrderPayStatus();
 	}
-
 }

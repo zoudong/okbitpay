@@ -2,8 +2,8 @@ package com.zoudong.okbitpay.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
-import com.zoudong.okbitpay.model.PayOrder;
 import com.zoudong.okbitpay.config.Config;
+import com.zoudong.okbitpay.model.PayOrder;
 import com.zoudong.okbitpay.service.PayOrderService;
 import com.zoudong.okbitpay.util.ResultUtils;
 import com.zoudong.okbitpay.util.result.BaseResult;
@@ -34,45 +34,47 @@ public class PayController {
     private PayOrderService payOrderService;
 
     @RequestMapping(value = "/createPayOrder", method = RequestMethod.POST)
-    public Object createPayOrder(@Validated(value = {PayOrderCreateGroup.class})PayOrderVO payOrderVO, BindingResult bindingResult) {
-        Result result=new Result();
+    public Object createPayOrder(@Validated(value = {PayOrderCreateGroup.class}) PayOrderVO payOrderVO, BindingResult bindingResult) {
+        Result result = new Result();
         try {
-            logger.info("start{}", payOrderVO);
+            logger.info("[start createPayOrder]:{}", payOrderVO);
             //入参校验
             if (bindingResult.hasErrors()) {
                 result = ResultUtils.fillParameterfail(bindingResult);
-                logger.info("入参校验错误:{}", result);
+                logger.info("[parameterfail]:{}", result);
                 return result;
             }
 
-            PayOrder payOrder=new PayOrder();
+            PayOrder payOrder = new PayOrder();
             ConvertUtils.register(new DateConverter(null), java.util.Date.class);
-            BeanUtils.copyProperties(payOrder,payOrderVO);
-            String code=payOrderService.savePayOrderProcess(payOrder);
-            JSONObject resultObject=new JSONObject();
-            resultObject.put("code",code);
+            BeanUtils.copyProperties(payOrder, payOrderVO);
+            String code = payOrderService.savePayOrderProcess(payOrder);
+            JSONObject resultObject = new JSONObject();
+            resultObject.put("code", code);
             result = ResultUtils.fillSuccessData(resultObject);
-            logger.info("end{}", result);
+            logger.info("[end createPayOrder]:{}", result);
             return result;
         } catch (Exception e) {
             e.printStackTrace();
-            return ResultUtils.fillErrorMsg("创建bitCoin支付订单失败");
+            logger.error("[createPayOrder unknown Exception]");
+            return ResultUtils.fillErrorMsg("createPayOrder unknown Exception");
         }
     }
 
-    @RequestMapping(value = "/selectAllPayOrder", method = RequestMethod.GET)
-    public PageResult<PayOrder> queryApprovalUpIntegration(PayOrder payOrder) {
+    @RequestMapping(value = "/selectPayOrderByPage", method = RequestMethod.GET)
+    public PageResult<PayOrder> selectPayOrderByPage(PayOrder payOrder) {
         try {
-            logger.info("start{}", payOrder);
+            logger.info("[start selectPayOrderByPage]:{}", payOrder);
             PageHelper.startPage(payOrder.getStart(), payOrder.getLength());
             List<PayOrder> list = payOrderService.selectAllPayOrders();
             PageResult<PayOrder> pageResult = new PageResult<PayOrder>(list);
             pageResult.setStatus(BaseResult.success);
             pageResult.setMsg(BaseResult.success);
-            logger.info("end{}", pageResult);
+            logger.info("[end selectPayOrderByPage]{}", pageResult);
             return pageResult;
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error("[selectPayOrderByPage unknown Exception]");
             return new PageResult<>();
         }
     }

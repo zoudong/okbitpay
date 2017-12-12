@@ -2,9 +2,9 @@ package com.zoudong.okbitpay.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.zoudong.okbitpay.config.Config;
 import com.zoudong.okbitpay.dao.PayOrderMapper;
 import com.zoudong.okbitpay.model.PayOrder;
-import com.zoudong.okbitpay.config.Config;
 import com.zoudong.okbitpay.po.PayStatus;
 import com.zoudong.okbitpay.po.Status;
 import com.zoudong.okbitpay.service.PayOrderService;
@@ -24,7 +24,6 @@ import java.util.UUID;
 
 @Service
 public class PayOrderOrderServiceImpl implements PayOrderService {
-
 
 
     private static final Logger logger = LoggerFactory.getLogger(PayOrderOrderServiceImpl.class);
@@ -84,7 +83,7 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
 
     public void updatePayOrderPayStatus() throws Exception {
         PayOrder payOrder = new PayOrder();
-        payOrder.setStatus(PayStatus.pending+1);
+        payOrder.setStatus(PayStatus.pending + 1);
         payOrder.setRetryCount(config.getMaxretryCount());
         List<PayOrder> pendingReceivePayOrders = selectPendingReceivePayOrders(payOrder);
         for (PayOrder pendingReceivePayOrder : pendingReceivePayOrders) {
@@ -101,7 +100,7 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
                         , pendingReceivePayOrder.getOrderId()
                         , PayStatus.paid
                 );
-                doCallback(callbackUrl,null,null,null,null);
+                doCallback(callbackUrl, null, null, null, null);
             } else {
                 PayOrder pendingOrder = new PayOrder();
                 pendingOrder.setId(pendingReceivePayOrder.getId());
@@ -117,7 +116,7 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
                         , pendingReceivePayOrder.getOrderId()
                         , PayStatus.paid
                 );
-                doCallback(callbackUrl,null,null,null,null);
+                doCallback(callbackUrl, null, null, null, null);
             }
         }
     }
@@ -141,11 +140,11 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
     }
 
     @Async
-    public void doCallback(String callbackUrl, JSONObject jsonParam, Integer connectionRequestTimeout, Integer connectTimeout, Integer socketTimeout){
+    public void doCallback(String callbackUrl, JSONObject jsonParam, Integer connectionRequestTimeout, Integer connectTimeout, Integer socketTimeout) {
         try {
             HttpClientUtils.jsonPost(callbackUrl, jsonParam, null, null, null);
-        }catch (Exception e){
-            logger.error("订单系统回调异常:{}",callbackUrl);
+        } catch (Exception e) {
+            logger.error("订单系统回调异常:{}", callbackUrl);
             e.printStackTrace();
         }
     }
