@@ -18,7 +18,7 @@ okbitpay is a bitcoin payment system by java
 keytool -genkey -alias okbitpay  -storetype PKCS12 -keyalg RSA -keysize 2048  -keystore keystore.p12 -validity 3650
 
 close postman SSL certificate verification
-
+###特别注意：支付系统部署和比特币linux客户端都要放到防火墙之后，除了你自己的业务系统，不要暴露给外部访问。
 
 ##1、安装bitCoin core 
 bit coinCore and config enable rpc:
@@ -44,7 +44,7 @@ maxretry_count=9
 ##3、数据库okbitpay.sql import安装
 
 ##4、对接你的订单系统 interface:2
-
+##创建支付订单
 ###post https://localhost:8443/bitcoinPayment/createPayOrder?amount=1&orderId=0000000000&callbackUrl=http://127.0.0.1:8080
 返回结果:  
 {  
@@ -56,9 +56,10 @@ maxretry_count=9
     "externData": null  
 }
 #####一个orderId返回一个code自己保存在订单业务系统关联支付状态
+###如果支付成功并被6个区块确认（标准6个）后会回调你创建订单时的回调地址并附加3个业务参数过来，完成支付流程。   
+###支付速度取决于你支付时给矿工的手续费-不是给平台的，平台不收。手续费与矿池挖矿确认区块的优先级有很大关系。
 
-
-
+##查询支付订单
 ###get https://localhost:8443/bitcoinPayment/selectPayOrderByPage
 
 返回结果:  
@@ -102,6 +103,8 @@ maxretry_count=9
     "iTotalRecords": 1,  
     "iTotalDisplayRecords": 1  
 }  
+
+####you order system config callback url param 3: code=xxxxx&orderId=xxxx&payStatus=xxx
 
 
 Donation bitcoin address:12F1PyutAzus9Q9Bg64fYqCXyyYcMxts4b  
