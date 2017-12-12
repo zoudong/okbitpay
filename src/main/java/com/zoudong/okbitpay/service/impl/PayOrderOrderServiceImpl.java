@@ -32,11 +32,6 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
     @Resource
     private PayOrderMapper payOrderMapper;
 
-    private String url = String.format("http://%s:%s@%s:%s", config.getRpcuser()
-            , config.getRpcpassword()
-            , config.getRpcaddress()
-            , config.getRpcport());
-
     public List<PayOrder> selectAllPayOrders() throws Exception {
         return payOrderMapper.selectAll();
     }
@@ -60,6 +55,10 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
 
     @Transactional
     public String savePayOrderProcess(PayOrder payOrder) throws Exception {
+        String url = String.format("http://%s:%s@%s:%s", config.getRpcuser()
+                , config.getRpcpassword()
+                , config.getRpcaddress()
+                , config.getRpcport());
         JSONObject jsonParam = new JSONObject();
         jsonParam.put("id", 0);
         jsonParam.put("method", "getaccountaddress");
@@ -122,7 +121,10 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
     }
 
     public boolean isPaid(String receiveAddress, BigDecimal amount) throws Exception {
-
+        String url = String.format("http://%s:%s@%s:%s", config.getRpcuser()
+                , config.getRpcpassword()
+                , config.getRpcaddress()
+                , config.getRpcport());
         JSONObject jsonParam = new JSONObject();
         jsonParam.put("id", 0);
         jsonParam.put("method", "getreceivedbyaddress");

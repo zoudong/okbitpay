@@ -13,7 +13,6 @@ public class BaseResult implements Serializable {
     private Object data;
     private Object externData;
 
-
     //执行成功
     public static final String success = "success";
     //执行失败
@@ -33,8 +32,9 @@ public class BaseResult implements Serializable {
 
     public BaseResult() {
         this.status = fail;
-        this.data = "";
+        this.data = null;
         this.msg = fail;
+        this.externData = null;
     }
 
 

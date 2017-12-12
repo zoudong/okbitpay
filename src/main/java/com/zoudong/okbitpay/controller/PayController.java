@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
-
+@RequestMapping("/bitcoinPayment")
 @RestController
 public class PayController {
     private static final Logger logger = LoggerFactory.getLogger(PayController.class);
