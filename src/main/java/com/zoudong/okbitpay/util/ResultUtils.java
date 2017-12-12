@@ -24,7 +24,7 @@ public class ResultUtils {
             } else {
                 jsonResult.setMsg(BaseResult.fail);
             }
-            jsonResult.setData("");
+            jsonResult.setData(null);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,7 +42,7 @@ public class ResultUtils {
         Result jsonResult = new Result();
         jsonResult.setMsg(message);
         jsonResult.setStatus(BaseResult.fail);
-        jsonResult.setData("");
+        jsonResult.setData(null);
         return jsonResult;
     }
 
@@ -52,7 +52,7 @@ public class ResultUtils {
         jsonResult.setStatus(BaseResult.success);
         jsonResult.setMsg(BaseResult.success);
         if (data == null) {
-            jsonResult.setData("");
+            jsonResult.setData(null);
         } else {
             jsonResult.setData(data);
         }
