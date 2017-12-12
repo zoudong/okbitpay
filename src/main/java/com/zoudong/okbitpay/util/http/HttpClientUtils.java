@@ -43,8 +43,8 @@ public class HttpClientUtils {
         .setExpectContinueEnabled(true).build();
 
     PoolingHttpClientConnectionManager pccm = new PoolingHttpClientConnectionManager();
-    pccm.setMaxTotal(300); // 连接池最大并发连接数
-    pccm.setDefaultMaxPerRoute(50); // 单路由最大并发数
+    pccm.setMaxTotal(10000); // 连接池最大并发连接数
+    pccm.setDefaultMaxPerRoute(1000); // 单路由最大并发数
 
     HttpRequestRetryHandler retryHandler = new HttpRequestRetryHandler() {
       public boolean retryRequest(IOException exception , int executionCount , HttpContext context) {
