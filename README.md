@@ -45,7 +45,7 @@ maxretry_count=9
 
 ##4、对接你的订单系统 interface:2   
 ##创建支付订单   
-###post https://localhost:8443/bitcoinPayment/createPayOrder?amount=1&orderId=0000000000&callbackUrl=http://127.0.0.1:8080
+###post https://localhost:8443/bitcoinPayment/createPayOrder?amount=1&orderId=0000000000&callbackUrl=http://127.0.0.1:8080   
 返回结果:   
 {  
     "status": "success",  
