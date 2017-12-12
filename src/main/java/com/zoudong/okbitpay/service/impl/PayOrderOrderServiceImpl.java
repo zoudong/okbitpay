@@ -63,7 +63,7 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
         jsonParam.put("id", 0);
         jsonParam.put("method", "getaccountaddress");
         JSONArray jsonArray = new JSONArray();
-        String code = UUID.randomUUID().toString();
+        String code = getCode();
         jsonArray.add(code);
         jsonParam.put("params", jsonArray);
         JSONObject jsonObject = HttpClientUtils.jsonPost(url, jsonParam, null, null, null);
@@ -77,6 +77,15 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
         payOrder.setStatus(Status.enable);
         this.insertOnePayOrder(payOrder);
         return code;
+    }
+
+    /**
+     * (取得code)锁定容易造成并发问题的资源
+     *
+     * @return
+     */
+    public synchronized String getCode() {
+        return UUID.randomUUID().toString();
     }
 
 
