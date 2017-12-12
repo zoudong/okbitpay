@@ -23,23 +23,23 @@ close postman SSL certificate verification
 ##1、安装bitCoin core    
 bit coinCore and config enable rpc:   
 
-server=1
-rest=1
-rpcbind=127.0.0.1:8332
-rpcuser=root
-rpcpassword=123456-youpassword
+server=1   
+rest=1   
+rpcbind=127.0.0.1:8332   
+rpcuser=root   
+rpcpassword=123456-youpassword   
 
 
 
 ##2、config.properties配置同步   
 
-rpcaddress=127.0.0.1
-rpcuser=root
-rpcpassword=123456
-rpcport=8332
+rpcaddress=127.0.0.1   
+rpcuser=root   
+rpcpassword=123456   
+rpcport=8332   
 
-validation_level=6
-maxretry_count=9
+validation_level=6   
+maxretry_count=9   
 
 ##3、数据库okbitpay.sql import安装   
 
