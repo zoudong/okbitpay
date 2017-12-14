@@ -88,7 +88,7 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
         return UUID.randomUUID().toString();
     }
 
-
+    @Transactional
     public void updatePayOrderPayStatus() throws Exception {
         PayOrder payOrder = new PayOrder();
         payOrder.setStatus(PayStatus.pending + 1);
