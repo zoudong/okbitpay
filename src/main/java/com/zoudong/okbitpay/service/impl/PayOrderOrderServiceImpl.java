@@ -95,6 +95,7 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
         payOrder.setRetryCount(config.getMaxretryCount());
         List<PayOrder> pendingReceivePayOrders = selectPendingReceivePayOrders(payOrder);
         for (PayOrder pendingReceivePayOrder : pendingReceivePayOrders) {
+            logger.info("[start task:]{}",pendingReceivePayOrder);
             if (isPaid(pendingReceivePayOrder.getReceiveAddress(), pendingReceivePayOrder.getAmount())) {
                 PayOrder paidOrder = new PayOrder();
                 paidOrder.setId(pendingReceivePayOrder.getId());
@@ -143,7 +144,7 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
         jsonParam.put("params", jsonArray);
 
         JSONObject jsonObject = HttpClientUtils.jsonPost(url, jsonParam, null, null, null);
-        if (amount.equals(jsonObject.getBigDecimal("result"))) {
+        if (jsonObject.getBigDecimal("result").compareTo(amount)==1) {
             return true;
         } else {
             return false;
@@ -155,7 +156,7 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
         try {
             HttpClientUtils.jsonPost(callbackUrl, jsonParam, null, null, null);
         } catch (Exception e) {
-            logger.error("订单系统回调异常:{}", callbackUrl);
+            logger.error("[callback Exception]:{}{}", callbackUrl,jsonParam);
             e.printStackTrace();
         }
     }
