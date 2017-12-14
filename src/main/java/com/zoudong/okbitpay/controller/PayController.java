@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
+
 @RequestMapping("/bitcoinPayment")
 @RestController
 public class PayController {
@@ -44,7 +45,11 @@ public class PayController {
                 logger.info("[parameterfail]:{}", result);
                 return result;
             }
-
+            //call back url fileter
+            if (-1 != payOrderVO.getCallbackUrl().indexOf("localhost")
+                    || -1 != payOrderVO.getCallbackUrl().indexOf("127.0.0.1")) {
+                return ResultUtils.fillErrorMsg("calbackUrl not 127.0.0.1 or localhost");
+            }
             PayOrder payOrder = new PayOrder();
             ConvertUtils.register(new DateConverter(null), java.util.Date.class);
             BeanUtils.copyProperties(payOrder, payOrderVO);
