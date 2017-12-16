@@ -62,7 +62,7 @@ maxretry_count=9
 
 
 ##查询创建的订单支付状态payStatus<2>   
-###POST https://localhost:8443/bitcoinPayment/selectOneOrderByCode       
+###POST https://localhost:8443/bitcoinPayment/selectOneOrderByCode?code=cebbc5ed-1f71-4805-8a0e-4ada63ced00b       
 返回结果:    
 {   
     "status": "success",   
