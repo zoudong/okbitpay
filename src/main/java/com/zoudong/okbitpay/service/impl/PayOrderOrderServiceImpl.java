@@ -131,24 +131,29 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
     }
 
     public boolean isPaid(String receiveAddress, BigDecimal amount) throws Exception {
-        String url = String.format("http://%s:%s@%s:%s", config.getRpcuser()
-                , config.getRpcpassword()
-                , config.getRpcaddress()
-                , config.getRpcport());
-        JSONObject jsonParam = new JSONObject();
-        jsonParam.put("id", 0);
-        jsonParam.put("method", "getreceivedbyaddress");
-        JSONArray jsonArray = new JSONArray();
-        jsonArray.add(receiveAddress);
-        jsonArray.add(config.getValidationLevel());
-        jsonParam.put("params", jsonArray);
+        try {
+            String url = String.format("http://%s:%s@%s:%s", config.getRpcuser()
+                    , config.getRpcpassword()
+                    , config.getRpcaddress()
+                    , config.getRpcport());
+            JSONObject jsonParam = new JSONObject();
+            jsonParam.put("id", 0);
+            jsonParam.put("method", "getreceivedbyaddress");
+            JSONArray jsonArray = new JSONArray();
+            jsonArray.add(receiveAddress);
+            jsonArray.add(config.getValidationLevel());
+            jsonParam.put("params", jsonArray);
 
-        JSONObject jsonObject = HttpClientUtils.jsonPost(url, jsonParam, null, null, null);
-        if (jsonObject.getBigDecimal("result").compareTo(amount)==1) {
-            return true;
-        } else {
-            return false;
+            JSONObject jsonObject = HttpClientUtils.jsonPost(url, jsonParam, null, null, null);
+            if (jsonObject.getBigDecimal("result").compareTo(amount) == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        }catch (Exception e){
+            logger.error("[isPaid Exception]:exception message:{}",e.getMessage());
         }
+        return false;
     }
 
     @Async
@@ -156,8 +161,7 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
         try {
             HttpClientUtils.jsonPost(callbackUrl, jsonParam, null, null, null);
         } catch (Exception e) {
-            logger.error("[callback Exception]:{}{}", callbackUrl,jsonParam);
-            e.printStackTrace();
+            logger.error("[callback Exception]:callbackUrl:{}jsonParam:{}exception message:{}", callbackUrl,jsonParam,e.getMessage());
         }
     }
 
