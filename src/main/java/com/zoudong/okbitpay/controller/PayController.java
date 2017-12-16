@@ -87,9 +87,13 @@ public class PayController {
             if(StringUtils.isEmpty(code)){
                 return ResultUtils.fillErrorMsg("[parameterfail]:code not is empty!");
             }
-            PayOrder payOrder= payOrderService.selectOneOrderByCode(code);
-            logger.info("[end selectOneOrderByCode]{}", payOrder);
-            return ResultUtils.fillSuccessData(payOrder);
+            List<PayOrder> payOrders= payOrderService.selectOneOrderByCode(code);
+            logger.info("[end selectOneOrderByCode]{}", payOrders);
+            if(!payOrders.isEmpty()) {
+                return ResultUtils.fillSuccessData(payOrders.get(0));
+            }else{
+                return ResultUtils.fillErrorMsg("code fail!");
+            }
         } catch (Exception e) {
             logger.error("[selectOneOrderByCode unknown Exception]");
             e.printStackTrace();

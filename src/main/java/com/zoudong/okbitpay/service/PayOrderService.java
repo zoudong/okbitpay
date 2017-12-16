@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public interface PayOrderService {
-    public PayOrder selectOneOrderByCode(String code) throws Exception;
+    public List<PayOrder> selectOneOrderByCode(String code) throws Exception;
 
     public List<PayOrder> selectAllPayOrders() throws Exception;
 
