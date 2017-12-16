@@ -3,6 +3,7 @@ package com.zoudong.okbitpay.service;
 import com.zoudong.okbitpay.model.PayOrder;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface PayOrderService {
@@ -16,7 +17,7 @@ public interface PayOrderService {
 
     public int updateByPrimaryKeySelectivePayOrder(PayOrder payOrder) throws Exception;
 
-    public String savePayOrderProcess(PayOrder payOrder) throws Exception;
+    public Map<String,String> savePayOrderProcess(PayOrder payOrder) throws Exception;
 
     public void updatePayOrderPayStatus() throws Exception;
 

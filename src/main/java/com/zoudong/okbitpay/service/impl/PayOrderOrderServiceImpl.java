@@ -18,9 +18,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class PayOrderOrderServiceImpl implements PayOrderService {
@@ -61,7 +59,7 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
     }
 
     @Transactional
-    public String savePayOrderProcess(PayOrder payOrder) throws Exception {
+    public Map<String,String> savePayOrderProcess(PayOrder payOrder) throws Exception {
         String url = String.format("http://%s:%s@%s:%s", config.getRpcuser()
                 , config.getRpcpassword()
                 , config.getRpcaddress()
@@ -82,8 +80,11 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
         payOrder.setCreateTime(new Date());
         payOrder.setPayStatus(PayStatus.pending);
         payOrder.setStatus(Status.enable);
-        this.insertOnePayOrder(payOrder);
-        return code;
+        int result=this.insertOnePayOrder(payOrder);
+        Map<String,String> resultMap=new HashMap<String,String>();
+        resultMap.put("code",code);
+        resultMap.put("receiveAddress",payOrder.getReceiveAddress());
+        return resultMap;
     }
 
     /**

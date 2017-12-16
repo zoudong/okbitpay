@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/bitcoinPayment")
 @RestController
@@ -49,10 +50,9 @@ public class PayController {
             PayOrder payOrder = new PayOrder();
             ConvertUtils.register(new DateConverter(null), java.util.Date.class);
             BeanUtils.copyProperties(payOrder, payOrderVO);
-            String code = payOrderService.savePayOrderProcess(payOrder);
+            Map<String,String> resultMap= payOrderService.savePayOrderProcess(payOrder);
             JSONObject resultObject = new JSONObject();
-            resultObject.put("code", code);
-            result = ResultUtils.fillSuccessData(resultObject);
+            result = ResultUtils.fillSuccessData(resultMap);
             logger.info("[end createPayOrder]:{}", result);
             return result;
         } catch (Exception e) {

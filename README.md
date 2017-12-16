@@ -52,7 +52,8 @@ maxretry_count=9
     "status": "success",  
     "msg": "success",  
     "data": {  
-        "code": "aa7eec07-efed-4d92-ae6a-b7861475291e"  
+        "code": "aa7eec07-efed-4d92-ae6a-b7861475291e",
+        "receiveAddress": "1Gx4KTvN6ShZVkY8Meu78gVHLaPfUHEhxx"  
     },  
     "externData": null  
 }   
