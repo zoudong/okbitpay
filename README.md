@@ -43,9 +43,9 @@ maxretry_count=9
 
 ##3、数据库okbitpay.sql import安装   
 
-##4、对接你的订单系统 interface:2   
-##创建支付订单   
-###post https://localhost:8443/bitcoinPayment/createPayOrder?amount=1&orderId=0000000000&callbackUrl=http://127.0.0.1:8080   
+##4、对接你的订单系统 interface:count 3 
+##创建支付订单<1>    
+###POST https://localhost:8443/bitcoinPayment/createPayOrder?amount=1&orderId=0000000000&callbackUrl=http://127.0.0.1:8080   
 返回结果:   
 {  
     "status": "success",  
@@ -59,8 +59,49 @@ maxretry_count=9
 ###如果支付成功并被6个区块确认（标准6个）后会回调你创建订单时的回调地址并附加3个业务参数过来，完成支付流程。      
 ###支付速度取决于你支付时给矿工的手续费-不是给平台的，平台不收。手续费与矿池挖矿确认区块的优先级有很大关系。   
 
-##查询支付订单   
-###get https://localhost:8443/bitcoinPayment/selectPayOrderByPage   
+
+##查询创建的订单支付状态payStatus<2>   
+###POST https://localhost:8443/bitcoinPayment/selectOneOrderByCode       
+返回结果:    
+{   
+    "status": "success",   
+    "msg": "success",   
+    "data": {   
+        "id": 22,   
+        "start": 0,   
+        "length": 10,    
+        "ordBy": null,    
+        "ordCol": null,   
+        "code": "cebbc5ed-1f71-4805-8a0e-4ada63ced00b",   
+        "amount": 1,   
+        "receiveAddress": "1JdoJDdix9AeGWRvieMzTUzzh4AA4bLs1P",    
+        "sendAddress": null,   
+        "payTime": null,   
+        "retryCount": 10,   
+        "lastRetryTime": 1512233640000,  
+        "payStatus": "pending",   
+        "payDescription": null,   
+        "productId": 0,   
+        "productName": null,   
+        "productNumber": 0,   
+        "accountCode": null,   
+        "accountName": null,   
+        "status": "disable",   
+        "createTime": 1512233040000,    
+        "updateTime": null,   
+        "callbackUrl": "http://127.0.0.1:8080",    
+        "orderId": "0000000000"    
+    },    
+    "externData": null   
+}   
+ 
+##status list:     
+"pending":待支付    
+"paid":已支付    
+"expire":订单超时    
+
+##查询所有支付订单<3>   
+###POST https://localhost:8443/bitcoinPayment/selectPayOrderByPage   
 
 返回结果:  
 {   
