@@ -39,12 +39,12 @@ public class HttpClientUtils {
 
   static {
     // 初始化线程池
-    RequestConfig params = RequestConfig.custom().setConnectTimeout(3000).setConnectionRequestTimeout(1000).setSocketTimeout(4000)
+    RequestConfig params = RequestConfig.custom().setConnectTimeout(30000).setConnectionRequestTimeout(30000).setSocketTimeout(30000)
         .setExpectContinueEnabled(true).build();
 
     PoolingHttpClientConnectionManager pccm = new PoolingHttpClientConnectionManager();
-    pccm.setMaxTotal(10000); // 连接池最大并发连接数
-    pccm.setDefaultMaxPerRoute(1000); // 单路由最大并发数
+    pccm.setMaxTotal(30000); // 连接池最大并发连接数
+    pccm.setDefaultMaxPerRoute(3000); // 单路由最大并发数
 
     HttpRequestRetryHandler retryHandler = new HttpRequestRetryHandler() {
       public boolean retryRequest(IOException exception , int executionCount , HttpContext context) {
