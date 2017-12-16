@@ -32,6 +32,13 @@ public class PayOrderOrderServiceImpl implements PayOrderService {
     @Resource
     private PayOrderMapper payOrderMapper;
 
+
+    public PayOrder selectOneOrderByCode(String code) throws Exception {
+        Example example = new Example(PayOrder.class);
+        example.createCriteria().andEqualTo("code", code);
+        return payOrderMapper.selectByExample(example).get(0);
+    }
+
     public List<PayOrder> selectAllPayOrders() throws Exception {
         return payOrderMapper.selectAll();
     }

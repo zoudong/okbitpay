@@ -12,7 +12,7 @@ okbitpay is a bitcoin payment system by java
 未来开源网址 http://www.okbitpay.com 还未建立   
 
 
-#使用说明:   
+#使用说明:   mvn package
 
 开启https支持:重新生成keystore.p12替换或去权威机构注册个证书   
 keytool -genkey -alias okbitpay  -storetype PKCS12 -keyalg RSA -keysize 2048  -keystore keystore.p12 -validity 3650   

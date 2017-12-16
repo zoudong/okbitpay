@@ -14,6 +14,7 @@ import com.zoudong.okbitpay.vo.PayOrderVO;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
@@ -55,13 +56,13 @@ public class PayController {
             logger.info("[end createPayOrder]:{}", result);
             return result;
         } catch (Exception e) {
-            e.printStackTrace();
             logger.error("[createPayOrder unknown Exception]");
+            e.printStackTrace();
             return ResultUtils.fillErrorMsg("createPayOrder unknown Exception");
         }
     }
 
-    @RequestMapping(value = "/selectPayOrderByPage", method = RequestMethod.GET)
+    @RequestMapping(value = "/selectPayOrderByPage", method = RequestMethod.POST)
     public PageResult<PayOrder> selectPayOrderByPage(PayOrder payOrder) {
         try {
             logger.info("[start selectPayOrderByPage]:{}", payOrder);
@@ -73,9 +74,26 @@ public class PayController {
             logger.info("[end selectPayOrderByPage]{}", pageResult);
             return pageResult;
         } catch (Exception e) {
-            e.printStackTrace();
             logger.error("[selectPayOrderByPage unknown Exception]");
+            e.printStackTrace();
             return new PageResult<>();
+        }
+    }
+
+    @RequestMapping(value = "/selectOneOrderByCode", method = RequestMethod.POST)
+    public Result selectOneOrderByCode(String code) {
+        try {
+            logger.info("[start selectOneOrderByCode]:{}", code);
+            if(StringUtils.isEmpty(code)){
+                return ResultUtils.fillErrorMsg("[parameterfail]:code not is empty!");
+            }
+            PayOrder payOrder= payOrderService.selectOneOrderByCode(code);
+            logger.info("[end selectOneOrderByCode]{}", payOrder);
+            return ResultUtils.fillSuccessData(payOrder);
+        } catch (Exception e) {
+            logger.error("[selectOneOrderByCode unknown Exception]");
+            e.printStackTrace();
+            return  ResultUtils.fillErrorMsg(e.getMessage());
         }
     }
 }
