@@ -20,7 +20,7 @@ keytool -genkey -alias okbitpay  -storetype PKCS12 -keyalg RSA -keysize 2048  -k
 close postman SSL certificate verification   
 ###特别注意：支付系统部署和比特币linux客户端都要放到防火墙之后，除了你自己的业务系统，不要暴露给外部访问。   
 
-##1、安装bitCoin core    
+##1、安装bitCoin core客户端并开启rpc服务        
 bit coinCore and config enable rpc:   
 
 server=1   
@@ -31,7 +31,7 @@ rpcpassword=123456-youpassword
 
 
 
-##2、config.properties配置同步   
+##2、把bitCoing core客户端的配置匹配到config.properties进行同步   
 
 rpcaddress=127.0.0.1   
 rpcuser=root   
@@ -41,9 +41,10 @@ rpcport=8332
 validation_level=6   
 maxretry_count=9   
 
-##3、数据库okbitpay.sql import安装   
+##3、MYSQL数据库安装并倒入okbitpay.sql        
 
-##4、对接你的订单系统 interface:count 3 
+##4、调用okbitpay开发的接口对接你的订单系统 interface:count 3  
+    
 ##创建支付订单<1>    
 ###POST https://localhost:8443/bitcoinPayment/createPayOrder?amount=1&orderId=0000000000&callbackUrl=http://127.0.0.1:8080   
 返回结果:   
