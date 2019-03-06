@@ -150,8 +150,6 @@ maxretry_count=9
 ####you order system config callback url param 3: code=xxxxx&orderId=xxxx&payStatus=xxx   
 
 
-###Donation bitcoin address:12F1PyutAzus9Q9Bg64fYqCXyyYcMxts4b    
-###喜爱这项目赠送比特币给我:12F1PyutAzus9Q9Bg64fYqCXyyYcMxts4b   
 ^_^^_^^_^^_^^_^^_^^_^^_^^_^^_^^_^^_^^_^^_^^_^^_^^_^^_^^_^^_^
 联系方式:（技术交流^_^）   
 mail:692737146@qq.com    
